@@ -108,9 +108,9 @@
 // is sufficient to encode pixel color order, saving some space.
 
 #ifdef NEO_KHZ400
-typedef uint8_t  neoPixelType;
-#else
 typedef uint16_t neoPixelType;
+#else
+typedef uint8_t  neoPixelType;
 #endif
 
 class Adafruit_NeoPixel {
@@ -136,6 +136,8 @@ class Adafruit_NeoPixel {
   uint8_t
    *getPixels(void) const,
     getBrightness(void) const;
+  int8_t
+    getPin(void) { return pin; };
   uint16_t
     numPixels(void) const;
   static uint32_t
@@ -144,9 +146,9 @@ class Adafruit_NeoPixel {
   uint32_t
     getPixelColor(uint16_t n) const;
   inline bool
-    canShow(void) { return (micros() - endTime) >= 50L; }
+    canShow(void) { return (micros() - endTime) >= 300L; }
 
- private:
+ protected:
 
   boolean
 #ifdef NEO_KHZ400  // If 400 KHz NeoPixel support enabled...
@@ -173,7 +175,6 @@ class Adafruit_NeoPixel {
   uint8_t
     pinMask;       // Output PORT bitmask
 #endif
-
 };
 
 #endif // ADAFRUIT_NEOPIXEL_H
